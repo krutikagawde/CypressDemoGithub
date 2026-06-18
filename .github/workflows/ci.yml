@@ -1,9 +1,28 @@
-name: Test Workflow
+name: Cypress Tests
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  test:
+  cypress-run:
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3]
+
     steps:
-      - run: echo "Hello GitHub Actions"
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Cypress tests (PARALLEL)
+        run: npx cypress run --record --parallel
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
