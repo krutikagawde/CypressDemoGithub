@@ -2,7 +2,7 @@ describe('Loop over an array of URLs', () => {
   const urls = [
     'https://example.cypress.io',
     'https://docs.cypress.io',
-    'https://www.cypress.io',
+    'https://www.google.com',
   ];
 
   urls.forEach((url) => {
